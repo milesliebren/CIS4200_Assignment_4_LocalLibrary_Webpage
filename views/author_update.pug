@@ -1,0 +1,24 @@
+extends layout
+
+block content
+  h1 #{title}: #{author.name}
+  p= author.lifespan
+
+  form(method='POST', action=`/catalog/author/${author._id}/update`)
+    div.form-group
+      label(for='first_name') First Name
+      input#first_name.form-control(type='text', name='first_name', value=author.first_name, required='true')
+
+    div.form-group
+      label(for='family_name') Family Name
+      input#family_name.form-control(type='text', name='family_name', value=author.family_name, required='true')
+
+    div.form-group
+      label(for='date_of_birth') Date of Birth
+      input#date_of_birth.form-control(type='date', name='date_of_birth', value=author.date_of_birth)
+
+    div.form-group
+      label(for='date_of_death') Date of Death
+      input#date_of_death.form-control(type='date', name='date_of_death', value=author.date_of_death)
+
+    button.btn.btn-primary(type='submit') Update

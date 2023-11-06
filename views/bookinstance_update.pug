@@ -1,0 +1,24 @@
+extends layout
+
+block content
+  h1 #{title}: #{bookInstance.book.title}
+  form(method='POST' action=`/catalog/bookinstance/${bookInstance._id}/update`)
+    div.form-group
+      label(for='book') Book
+      select#book.form-control(name='book', required='true')
+        each book in books
+          option(value=book._id, selected=(book._id.toString() === bookInstance.book._id.toString())) #{book.title}
+
+    div.form-group
+      label(for='imprint') Imprint
+      input#imprint.form-control(type='text', name='imprint', value=bookInstance.imprint, required='true')
+
+    div.form-group
+      label(for='status') Status
+      input#status.form-control(type='text', name='status', value=bookInstance.status, required='true')
+
+    div.form-group
+      label(for='due_back') Due Back
+      input#due_back.form-control(type='date', name='due_back', value=bookInstance.due_back)
+
+    button.btn.btn-primary(type='submit') Update

@@ -1,0 +1,31 @@
+extends layout
+
+block content
+  h1 #{title}: #{book.title}
+  form(method='POST' action=`/catalog/book/${book._id}/update`)
+    div.form-group
+      label(for='title') Title
+      input#title.form-control(type='text', name='title', value=book.title, required='true')
+
+    div.form-group
+      label(for='author') Author
+      select#author.form-control(name='author', required='true')
+        each author in authors
+          option(value=author._id, selected=(author._id.toString() === book.author._id.toString())) #{author.name}
+
+    div.form-group
+      label(for='summary') Summary
+      textarea#summary.form-control(type='text', name='summary', required='true')= book.summary
+
+    div.form-group
+      label(for='isbn') ISBN
+      input#isbn.form-control(type='text', name='isbn', value=book.isbn, required='true')
+
+    div.form-group
+      label Genres
+      each genre in genres
+        div.form-check
+          input.form-check-input(type='checkbox', name='genre', value=genre._id, id=genre.name, checked=(book.genre.indexOf(genre._id) > -1))
+          label.form-check-label(for=genre.name) #{genre.name}
+
+    button.btn.btn-primary(type='submit') Update
